@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "name": "phone",
+      "price": 4000,
+      "image": "https://images.pexels.com/photos/569062/pexels-photo-569062.png",
+      "id": "H3guHuwWj2o"
+    },
+    {
+      "name": "watch",
+      "price": 3000,
+      "image": "https://images.pexels.com/photos/2442893/pexels-photo-2442893.jpeg",
+      "id": "UT7vy8kLpPQ"
+    },
+    {
+      "name": "mobile",
+      "price": 100,
+      "image": "https://images.pexels.com/photos/2442893/pexels-photo-2442893.jpeg",
+      "id": "Uo2Xy6smmdw"
+    }
+  ],
+  "cart": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}
