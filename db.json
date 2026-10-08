@@ -1,30 +1,29 @@
 {
   "products": [
     {
-      "name": "phone",
-      "price": 4000,
-      "image": "https://images.pexels.com/photos/569062/pexels-photo-569062.png",
-      "id": "H3guHuwWj2o"
+      "name": "door",
+      "price": 10000,
+      "image": "https://images.pexels.com/photos/17341660/pexels-photo-17341660.jpeg",
+      "discount": 20,
+      "id": "F6yjhm6jOAc"
     },
     {
       "name": "watch",
-      "price": 3000,
-      "image": "https://images.pexels.com/photos/2442893/pexels-photo-2442893.jpeg",
-      "id": "UT7vy8kLpPQ"
-    },
-    {
-      "name": "mobile",
-      "price": 100,
-      "image": "https://images.pexels.com/photos/2442893/pexels-photo-2442893.jpeg",
-      "id": "Uo2Xy6smmdw"
-    },
-    {
-      "name": "house",
-      "price": 40000,
-      "image": "https://images.pexels.com/photos/32037437/pexels-photo-32037437.jpeg",
-      "id": "iGHAuB_eSN4"
+      "price": 2000,
+      "image": "https://images.pexels.com/photos/2919052/pexels-photo-2919052.jpeg",
+      "discount": 30,
+      "id": "S1dKXRe4HYo"
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "productId": "F6yjhm6jOAc",
+      "name": "door",
+      "price": 8000,
+      "image": "https://images.pexels.com/photos/17341660/pexels-photo-17341660.jpeg",
+      "quantity": 1,
+      "id": "7CIWxLvJddQ"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -21,7 +21,7 @@ import {
   updateCartItem,
   clearCart,
   removeCartItem,
-} from "./redux/shopSlice"
+} from "./redux/shopSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./component/Header";
@@ -29,11 +29,11 @@ import Header from "./component/Header";
 export default function App() {
   const dispatch = useDispatch();
 
-  const products = useSelector((state) => state.shop.products)
+  const products = useSelector((state) => state.shop.products);
 
-  const cart = useSelector((state) => state.shop.cart)
+  const cart = useSelector((state) => state.shop.cart);
 
-  const [showAddProduct, setShowAddProduct] = useState(false)
+  const [showAddProduct, setShowAddProduct] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -51,23 +51,21 @@ export default function App() {
     loadData();
   }, [dispatch]);
 
-
   const addNewProduct = async (product) => {
     try {
       const data = await createProduct(product);
 
-      dispatch(addProduct(data))
+      dispatch(addProduct(data));
 
-      setShowAddProduct(false)
+      setShowAddProduct(false);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
 
   const addToCart = async (product) => {
     const existingItem = cart.find(
-      (item) =>
-        String(item.productId) === String(product.id)
+      (item) => String(item.productId) === String(product.id),
     );
 
     if (existingItem) {
@@ -76,51 +74,44 @@ export default function App() {
         quantity: existingItem.quantity + 1,
       };
 
-      const data = await updateCartItems(
-        existingItem.id,
-        updatedItem
-      );
+      const data = await updateCartItems(existingItem.id, updatedItem);
 
-      dispatch(updateCartItem(data))
+      dispatch(updateCartItem(data));
     } else {
+      const discountPrice =
+        product.price - (product.price * product.discount) / 100;
+
       const cartItem = {
         productId: product.id,
         name: product.name,
-        price: product.price,
+        price: discountPrice,
         image: product.image,
         quantity: 1,
       };
 
       const data = await addCartItem(cartItem);
 
-      dispatch(addCartItemRedux(data))
+      dispatch(addCartItemRedux(data));
     }
   };
 
   const removeFromCart = async (cartId) => {
     await deleteCartItem(cartId);
 
-    dispatch(removeCartItem(cartId))
+    dispatch(removeCartItem(cartId));
   };
 
   const totalPrice = cart.reduce(
-    (sum, item) =>
-      sum + item.price * item.quantity,
-    0
+    (sum, item) => sum + item.price * item.quantity,
+    0,
   );
 
   const handleCheckout = async () => {
-    alert(
-      `Thank you for your purchase! Total paid: Rs.${totalPrice}`
-    );
+    alert(`Thank you for your purchase! Total paid: Rs.${totalPrice}`);
 
     try {
-      await Promise.all(
-        cart.map((item) =>
-          deleteCartItem(item.id)
-        )
-      );
-      dispatch(clearCart())
+      await Promise.all(cart.map((item) => deleteCartItem(item.id)));
+      dispatch(clearCart());
     } catch (error) {
       console.log(error);
     }
@@ -130,22 +121,25 @@ export default function App() {
     <div>
       <Header />
       <div className="flex h-30 flex-col items-center justify-center gap-5 ">
-        <h1 className="text-shadow-black text-3xl font-bold">Your Cart Total is Rs.{totalPrice}</h1>
-        <button className="border-4 px-2 bg-black text-violet-200 hover:cursor-pointer" onClick={() => setShowAddProduct(prev => !prev)}>{
-          showAddProduct ? "Close" : "Add Product"
-
-        }</button>
-        <hr className="border-gray-900 w-full"/>
+        <h1 className="text-shadow-black text-3xl font-bold">
+          Your Cart Total is Rs.{totalPrice}
+        </h1>
+        <button
+          onClick={() => setShowAddProduct(true)}
+          className="rounded bg-black px-4 py-2 text-white hover:bg-gray-800"
+        >
+          Add Product
+        </button>
+        <hr className="border-gray-900 w-full" />
       </div>
+      {showAddProduct && (
+        <AddProduct
+          onProductAdded={addNewProduct}
+          onClose={() => setShowAddProduct(false)}
+        />
+      )}
 
-      {showAddProduct && <AddProduct
-        onProductAdded={addNewProduct}
-      />}
-
-      <ProductList
-        products={products}
-        onAddToCart={addToCart}
-      />
+      <ProductList products={products} onAddToCart={addToCart} />
 
       <Cart
         cart={cart}

@@ -1,10 +1,9 @@
 import ProductCard from "./ProductCard";
 
 export default function ProductList({ products = [], onAddToCart }) {
-
   return (
-    <>
-      <h3>Products</h3>
+    <div className="mx-auto mt-5 max-w-4xl p-6">
+      <h3 className="mb-6 text-2xl font-bold">Products</h3>
 
       {products.map((product) => (
         <ProductCard
@@ -13,6 +12,6 @@ export default function ProductList({ products = [], onAddToCart }) {
           onAddToCart={onAddToCart}
         />
       ))}
-    </>
+    </div>
   );
 }

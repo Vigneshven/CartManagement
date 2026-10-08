@@ -1,41 +1,33 @@
 import CartItem from "./CartItem";
 
-export default function Cart({
-  cart,
-  totalPrice,
-  onRemove,
-  onCheckout,
-}) {
-  if (cart.length === 0) {
-    return (
-      <>
-        <h2>Shopping Cart</h2>
-        <p>Your cart is empty.</p>
-      </>
-    );
-  }
-
+export default function Cart({ cart, totalPrice, onRemove, onCheckout }) {
   return (
-    <div>
-      <h2>Shopping Cart</h2>
+    <div className="mx-auto mt- max-w-4xl p-6">
+      <h2 className="mb-6 text-2xl font-bold">Shopping Cart</h2>
 
-      <ul>
-        {cart.map((item) => (
-          <CartItem
-            key={item.id}
-            item={item}
-            onRemove={onRemove}
-          />
-        ))}
-      </ul>
+      {cart.length === 0 ? (
+        <p className="py-10 text-center text-gray-500">Your cart is empty.</p>
+      ) : (
+        <>
+          <div>
+            {cart.map((item) => (
+              <CartItem key={item.id} item={item} onRemove={onRemove} />
+            ))}
+          </div>
 
-      <div>
-        <h3>Total: Rs.{totalPrice}</h3>
+          <div className="mt-6 flex items-center justify-between  pt-5">
+            <h3 className="text-xl font-bold">Total: Rs.{totalPrice}</h3>
 
-        <button onClick={onCheckout}>
-          Proceed to Checkout
-        </button>
-      </div>
+            <button
+              type="button"
+              onClick={onCheckout}
+              className="rounded bg-black px-5 py-2 text-white hover:bg-gray-800"
+            >
+              Proceed to Checkout
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
