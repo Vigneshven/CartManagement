@@ -17,6 +17,12 @@
       "price": 100,
       "image": "https://images.pexels.com/photos/2442893/pexels-photo-2442893.jpeg",
       "id": "Uo2Xy6smmdw"
+    },
+    {
+      "name": "house",
+      "price": 40000,
+      "image": "https://images.pexels.com/photos/32037437/pexels-photo-32037437.jpeg",
+      "id": "iGHAuB_eSN4"
     }
   ],
   "cart": [],
