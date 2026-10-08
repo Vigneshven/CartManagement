@@ -17,6 +17,7 @@ import{
   setProduct,
   setCart,
   addProduct,
+  addCartItem as addCartItemRedux,
   updateCartItem,
   clearCart,
   removeCartItem,
@@ -27,7 +28,7 @@ import { useDispatch,useSelector } from "react-redux";
 export default function App() {
   const dispatch = useDispatch();
 
-  const products = useSelector((state)=>state.shop.product)
+  const products = useSelector((state)=>state.shop.products)
 
   const cart = useSelector((state)=>state.shop.cart)
 
@@ -91,14 +92,14 @@ export default function App() {
 
       const data = await addCartItem(cartItem);
 
-      dispatch(addCartItem(data))
+      dispatch(addCartItemRedux(data))
     }
   };
 
   const removeFromCart = async (cartId) => {
     await deleteCartItem(cartId);
 
-    dispatch(removeCartItem)
+    dispatch(removeCartItem(cartId))
   };
 
   const totalPrice = cart.reduce(
@@ -128,7 +129,7 @@ export default function App() {
     <div>
       <h1>Your Cart Total is Rs.{totalPrice}</h1>
 
-      <button onClick={(prev)=>!prev}>{
+      <button onClick={()=>setShowAddProduct(prev=>!prev)}>{
         showAddProduct?"Close":"Add Product"
         
         }</button>
