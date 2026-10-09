@@ -121,7 +121,7 @@ export default function App() {
     <div>
       <Header />
       <div className="flex h-30 flex-col items-center justify-center gap-5 ">
-        <h1 className="text-shadow-black text-3xl font-bold">
+        <h1 className="text-shadow-black sm:text-3xl font-bold">
           Your Cart Total is Rs.{totalPrice}
         </h1>
         <button

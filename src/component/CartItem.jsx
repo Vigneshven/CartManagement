@@ -1,11 +1,11 @@
 export default function CartItem({ item, onRemove }) {
   return (
-    <div className="flex items-center gap-5 border-b py-5">
+    <div className="overflow-hidden rounded-lg flex items-center gap-5 border-b py-5">
 
       <img
         src={item.image}
         alt={item.name}
-        className="h-20 w-20 bg-gray-100 object-contain"
+        className="h-20 w-20 transition-transform duration-200 hover:scale-110 bg-gray-100 object-contain"
       />
 
       <div className="flex-1">

@@ -26,7 +26,7 @@ const shopSlice = createSlice({
         },
 
         updateCartItem:(state,action)=>{
-            const index = state.cart.find((item)=>item.id===action.payload.id)
+            const index = state.cart.findIndex((item)=>item.id===action.payload.id)
             if(index!==-1){
                 state.cart[index]=action.payload
             }
