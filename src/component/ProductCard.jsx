@@ -39,8 +39,7 @@ export default function ProductCard({ productId }) {
         className="h-32 w-32 transition-transform duration-200 hover:scale-110 bg-gray-100 object-contain"
       />
 
-      <div className="flex w-full flex-1 flex-col justify-center text-center">
-        <div className="w-full text-left">
+        <div className="flex flex-col">
           <h3 className="text-xl font-bold">{product.name}</h3>
         </div>
         <div className="flex w-full flex-1 flex-col justify-center text-center">
@@ -50,9 +49,8 @@ export default function ProductCard({ productId }) {
 
         <p className="mt-1 text-gray-500">Only 8 Available</p>
         </div>
-      </div>
 
-      <div>
+      <div className="flex flex-1 flex-col items-center justify-center text-center">
         <label className="block mb-1">Select Discount</label>
 
         <select
@@ -66,7 +64,7 @@ export default function ProductCard({ productId }) {
               }),
             )
           }
-          className="w-full rounded border px-3 py-2"
+          className="w-3xs rounded border px-3 py-2"
         >
           <option value={0}>No Discount</option>
 
