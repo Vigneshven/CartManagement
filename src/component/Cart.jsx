@@ -1,6 +1,20 @@
 import CartItem from "./CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { checkoutCart } from "../redux/shopSlice";
 
-export default function Cart({ cart, totalPrice, onRemove, onCheckout }) {
+export default function Cart() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.shop.cart);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + Number(item.price) * Number(item.quantity),
+    0,
+  );
+
+  const onCheckout = async () => {
+    alert(`Thank you for your purchase! Total paid: Rs.${totalPrice}`);
+    await dispatch(checkoutCart());
+  };
+
   return (
     <div className="mx-auto mt-2 w-full p-6">
       <h2 className="mb-6 text-center text-2xl font-bold">Shopping Cart</h2>
@@ -11,7 +25,7 @@ export default function Cart({ cart, totalPrice, onRemove, onCheckout }) {
         <>
           <div>
             {cart.map((item) => (
-              <CartItem key={item.id} item={item} onRemove={onRemove} />
+              <CartItem key={item.id} itemId={item.id} />
             ))}
           </div>
 

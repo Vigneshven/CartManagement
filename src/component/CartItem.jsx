@@ -1,4 +1,14 @@
-export default function CartItem({ item, onRemove }) {
+import { useDispatch, useSelector } from "react-redux";
+import { removeCartItemAsync } from "../redux/shopSlice";
+
+export default function CartItem({ itemId }) {
+  const dispatch = useDispatch();
+  const item = useSelector((state) =>
+    state.shop.cart.find((cartItem) => cartItem.id === itemId),
+  );
+
+  if (!item) return null;
+
   return (
     <div className="overflow-hidden rounded-lg flex items-center gap-5 border-b py-5">
 
@@ -13,8 +23,12 @@ export default function CartItem({ item, onRemove }) {
           {item.name}
         </h3>
 
+        <p className="mt-1 text-sm text-green-600">
+          {Number(item.selectedDiscount ?? 0)}% discount
+        </p>
+
         <p className="mt-1 text-gray-500">
-          Rs.{item.price} × {item.quantity}
+          Rs.{item.price} x {item.quantity}
         </p>
       </div>
 
@@ -24,7 +38,7 @@ export default function CartItem({ item, onRemove }) {
 
       <button
         type="button"
-        onClick={() => onRemove(item.id)}
+        onClick={() => dispatch(removeCartItemAsync(item.id))}
         className="rounded border px-3 py-1 text-sm hover:bg-black hover:text-white"
       >
         Remove

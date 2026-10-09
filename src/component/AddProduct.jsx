@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDispatch } from "react-redux";
+
+import {
+  createProductAsync,
+  setShowAddProduct,
+} from "../redux/shopSlice";
 
 const productSchema = z.object({
   productName: z.string().min(2, "Product name is required"),
@@ -14,10 +20,17 @@ const productSchema = z.object({
 
   productImage: z.string().url("Enter a valid image URL"),
 
-  discount: z.string().min(1, "Please select a discount"),
+  discount: z.string().min(1, "Enter atleast 1 discount").refine((value) => value.split(",").every((items) => {
+    const discounts = Number(items.trim())
+    return discounts !== "" && discounts >= 0 && discounts <= 100
+
+  }), {
+    message: "Discount Should between 0 to 100 separated by comma"
+  }),
 });
 
-export default function AddProduct({ onProductAdded, onClose }) {
+export default function AddProduct() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -32,13 +45,13 @@ export default function AddProduct({ onProductAdded, onClose }) {
       name: data.productName,
       price: Number(data.productPrice),
       image: data.productImage,
-      discount: Number(data.discount),
+      discount: data.discount.split(",").map((value)=>Number(value.trim())),
     };
 
-    await onProductAdded(newProduct);
+    await dispatch(createProductAsync(newProduct)).unwrap();
 
     reset();
-    onClose();
+    dispatch(setShowAddProduct(false));
   };
 
   return (
@@ -49,7 +62,7 @@ export default function AddProduct({ onProductAdded, onClose }) {
 
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => dispatch(setShowAddProduct(false))}
             className="text-2xl text-gray-500 hover:text-black"
           >
             X
@@ -109,18 +122,15 @@ export default function AddProduct({ onProductAdded, onClose }) {
           <div>
             <label className="mb-1 block font-medium">Discount</label>
 
-            <select
+            <input
+              type="text"
               {...register("discount")}
-              className="w-full rounded border px-3 py-2"
-            >
-              <option value="">Select Discount</option>
-              <option value="10">10%</option>
-              <option value="20">20%</option>
-              <option value="30">30%</option>
-              <option value="40">40%</option>
-              <option value="50">50%</option>
-            </select>
+              min="0"
+              max="100"
+              placeholder="Enter Discount 10,20,30"
+              className="w-full rounded border px-3 py-2 outline-none focus:border-black"
 
+            />
             {errors.discount && (
               <p className="mt-1 text-sm text-red-500">
                 {errors.discount.message}
@@ -131,16 +141,13 @@ export default function AddProduct({ onProductAdded, onClose }) {
           <div className="flex justify-end gap-3 pt-4">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => dispatch(setShowAddProduct(false))}
               className="rounded border px-5 py-2 hover:bg-gray-100"
             >
               Cancel
             </button>
 
-            <button
-              type="submit"
-              className="rounded bg-black px-5 py-2 text-white hover:bg-gray-800"
-            >
+            <button type="submit" className="rounded bg-black px-5 py-2 text-white hover:bg-gray-800">
               Add Product
             </button>
           </div>
