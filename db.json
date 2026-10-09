@@ -13,17 +13,15 @@
       "image": "https://images.pexels.com/photos/2919052/pexels-photo-2919052.jpeg",
       "discount": 30,
       "id": "S1dKXRe4HYo"
-    }
-  ],
-  "cart": [
+    },
     {
-      "productId": "F6yjhm6jOAc",
-      "name": "door",
-      "price": 8000,
-      "image": "https://images.pexels.com/photos/17341660/pexels-photo-17341660.jpeg",
-      "quantity": 1,
-      "id": "7CIWxLvJddQ"
+      "name": "cycle",
+      "price": 20000,
+      "image": "https://images.pexels.com/photos/35319489/pexels-photo-35319489.jpeg",
+      "discount": 10,
+      "id": "Gd5ZR_uUyEw"
     }
   ],
+  "cart": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

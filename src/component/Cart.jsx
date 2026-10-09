@@ -2,8 +2,8 @@ import CartItem from "./CartItem";
 
 export default function Cart({ cart, totalPrice, onRemove, onCheckout }) {
   return (
-    <div className="mx-auto mt- max-w-4xl p-6">
-      <h2 className="mb-6 text-2xl font-bold">Shopping Cart</h2>
+    <div className="mx-auto mt-2 w-full p-6">
+      <h2 className="mb-6 text-center text-2xl font-bold">Shopping Cart</h2>
 
       {cart.length === 0 ? (
         <p className="py-10 text-center text-gray-500">Your cart is empty.</p>

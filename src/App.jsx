@@ -63,7 +63,7 @@ export default function App() {
     }
   };
 
-  const addToCart = async (product) => {
+  const addToCart = async (product,selectedQuantity=1) => {
     const existingItem = cart.find(
       (item) => String(item.productId) === String(product.id),
     );
@@ -71,7 +71,7 @@ export default function App() {
     if (existingItem) {
       const updatedItem = {
         ...existingItem,
-        quantity: existingItem.quantity + 1,
+        quantity: existingItem.quantity + selectedQuantity,
       };
 
       const data = await updateCartItems(existingItem.id, updatedItem);
@@ -86,7 +86,7 @@ export default function App() {
         name: product.name,
         price: discountPrice,
         image: product.image,
-        quantity: 1,
+        quantity: selectedQuantity,
       };
 
       const data = await addCartItem(cartItem);
